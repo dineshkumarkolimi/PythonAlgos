@@ -1,7 +1,7 @@
 """_summary_
 
     Target sum or coins problem to find out respective possibilities
-    to reach a target sum. 
+    to reach a target sum. This is using Backrtracking Algorithm.
 """
 
 answer = []

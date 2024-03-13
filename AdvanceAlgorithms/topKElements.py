@@ -12,7 +12,7 @@ import heapq
 """
 def topKElements(arr,k):
     heapq.heapify(arr)
-    for i in range(1, len(arr)-k+1):
+    for i in range(0, len(arr)-k):
         heapq.heappop(arr)
     print(arr)
 

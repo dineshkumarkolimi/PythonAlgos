@@ -5,21 +5,21 @@ Created on Jul 04 2023
 
 @author: dineshkumarkolimi
 
-Program: longest non repeating char substring
+Given a string str, find the length of the longest substring without repeating characters. 
+
+Example:
+
+Example 1:
+Input: “ABCDEFGABEF”
+Output: 7
+Explanation: The longest substring without repeating characters are “ABCDEFG”, “BCDEFGA”, and “CDEFGAB” with lengths of 7
+
+Example 2:
+Input: “GEEKSFORGEEKS”
+Output: 7
+Explanation: The longest substrings without repeating characters are “EKSFORG” and “KSFORGE”, with lengths of 7
 """
-"""
-    Finds the longest non repeating char substring in a string
-    
-    Parameters
-    ----------
-    str : str
-        The string to find the longest non repeating char substring in
-    
-    Returns
-    -------
-    int
-        length of longest non repeating char substring in the string
-"""
+
 def longest_substring_no_repeat(string):
     alphabets = {}
     pos = -1

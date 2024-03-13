@@ -3,27 +3,27 @@
 """    
 import heapq
 
-def topKElements(arr,k):
-    """_summary_
+"""_summary_
 
     Args:
         arr (_type_): array of elements
         k (_type_): to find the k top elements
         complexity : O(nlogn)
-    """
+"""
+def topKElements(arr,k):
     heapq.heapify(arr)
     for i in range(1, len(arr)-k+1):
         heapq.heappop(arr)
     print(arr)
-    
-def topKElementsBetter(arr,k):
-    """_summary_
+
+"""_summary_
 
     Args:
          arr (_type_): array of elements
         k (_type_): to find the k top elements
         complexity : O(nlogk)
-    """
+"""
+def topKElementsBetter(arr,k):
     L=[]
     heapq.heapify(L)
     for i in range(k):

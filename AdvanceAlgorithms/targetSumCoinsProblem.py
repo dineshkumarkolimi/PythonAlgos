@@ -6,8 +6,7 @@
 
 answer = []
 
-def targetSum(coins, current_index, current_sum, combination, target):
-    """_summary_
+"""_summary_
 
     Args:
         coins (_type_): _description_
@@ -15,7 +14,8 @@ def targetSum(coins, current_index, current_sum, combination, target):
         current_sum (_type_): _description_
         combination (_type_): _description_
         target (_type_): _description_
-    """
+"""
+def targetSum(coins, current_index, current_sum, combination, target):
     if current_sum == target:
         answer.append(combination)
         return

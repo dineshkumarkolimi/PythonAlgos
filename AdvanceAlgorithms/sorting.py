@@ -62,6 +62,15 @@ def insertionSort(arr):
             else:
                 break
 
+def insertionSort2(arr):
+    for i in range(1,len(arr)):
+        pos = i
+        for j in range(i-1,-1,-1):
+            if arr[pos] < arr[j]:
+                arr[pos],arr[j] = arr[j],arr[pos]
+                pos = j
+            else: break
+
 """
     Merge sort is defined as a sorting algorithm that works by dividing an array 
     into smaller subarrays, sorting each subarray, and then merging the sorted 

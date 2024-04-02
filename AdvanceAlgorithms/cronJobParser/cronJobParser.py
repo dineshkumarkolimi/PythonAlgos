@@ -50,15 +50,15 @@ class CronJobParser(object):
             # Check if value is a range of numbers
             if '-' in value:
                 temp_start, temp_end = map(int, value.split('-'))
-                if temp_start < start or temp_end > end:
+                if temp_start < start or temp_end > end or temp_end < start or temp_start > end:
                     raise InvalidValuesError(f'Invalid: Cronjobs for {field} have to be between {start} and {end}')
                 result = [i for i in range(temp_start, temp_end+1)]
             # Check if value is incremented on step wise manner        
             elif '/' in value:
                 temp_start, step = value.split('/')
+                if temp_start != '*' and (int(temp_start) < start or int(temp_start) > end):
+                    raise InvalidValuesError(f'Invalid: Cronjobs for {field} have to be between {start} and {end}')
                 start = start if temp_start=='*' else int(temp_start)
-                if int(step) < 0 or start < 0:
-                    raise InvalidValuesError("Invalid: Cron job cannot have negative values")
                 result = [i for i in range(start, end, int(step))]
             # Check if list of values are provided
             elif ',' in value:
@@ -67,11 +67,11 @@ class CronJobParser(object):
             elif '*' in value:
                 result = [i for i in range(start, end)]
                 if not all(start <= x <= end for x in result):
-                    raise InvalidValuesError(f'Invalid: Cronjobs for {field} have to be between {start} and {end} ')
+                    raise InvalidValuesError(f'Invalid: Cronjobs for {field} have to be between {start} and {end}')
             # Case when single value is provided
             else:
-                if  end < int(value) < start or int(value) > end:
-                    raise InvalidValuesError(f'Invalid: Cronjobs for {field} have to be between {start} and {end} ')
+                if  int(value) < start or int(value) > end:
+                    raise InvalidValuesError(f'Invalid: Cronjobs for {field} have to be between {start} and {end}')
                 result = [value]
             return field + ' '*(13-len(field)) + ' '.join(map(str, result))
         except (ValueError, TypeError, IndexError, AttributeError) as e:
@@ -90,6 +90,7 @@ class CronJobParser(object):
         self.command = 'command      ' + cronItems[-1]
         self.weekdays = self.parseString("day of week", cronItems[4], 0, 7)
         self.months = self.parseString("month", cronItems[3], 1, 13)
+        # Handling February scenario
         if self.months.split(' ')[-1] == '2':
             self.days = self.parseString("day of month", cronItems[2], 1, 29)
         else:

@@ -19,3 +19,13 @@ Output Format:
         day of week 1 2 3 4 5
         command /usr/bin/find`
 
+To run test cases: `python3 test_cases.py`
+
+output format:
+python3 test_cases.py
+.........
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK
+

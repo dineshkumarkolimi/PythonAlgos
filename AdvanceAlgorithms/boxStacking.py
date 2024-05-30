@@ -5,9 +5,7 @@
 
 def boxStackingLen(L):
     L.sort(key = lambda x: x[0])
-    print(L)
     dp = [item[2] for item in L]
-    print(dp)
     n = len(L)
     for i in range(n):
         for j in range(i):

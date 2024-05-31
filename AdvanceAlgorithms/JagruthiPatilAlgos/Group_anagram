@@ -1,0 +1,80 @@
+/*
+Group Anagrams
+
+Given an array of strings, group anagrams together.
+
+For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"], 
+Return:
+
+[
+  ["ate", "eat","tea"],
+  ["nat","tan"],
+  ["bat"]
+]
+
+*/
+
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+ 		Map<String, List<String>> map = new HashMap<String, List<String>>();
+
+ 		for (int i = 0; i < strs.length; i++)  {
+ 			char[] sChars = strs[i].toCharArray();
+ 			Arrays.sort(sChars);
+ 			String sStr = new String(sChars);
+ 			if (map.containsKey(sStr)) {
+ 				List<String> list = map.get(sStr);
+ 				list.add(strs[i]);
+ 			} else {
+ 				List<String> list = new ArrayList<String>();
+ 				list.add(strs[i]);
+ 				map.put(sStr, list);
+ 			}
+ 		}
+
+ 		List<List<String>> strList = new ArrayList<List<String>>();
+ 		for (Map.Entry<String, List<String>> entry: map.entrySet()) {
+ 		    List<String> list = entry.getValue();
+ 		    Collections.sort(list);
+ 			strList.add(list);
+ 		}    
+ 		return strList;   
+    }
+}
+
+
+_____________________________________________________________________
+/*
+	Another approach without sorting	
+	take array of 26 characters
+*/
+
+public class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+ 		Map<String, List<String>> map = new HashMap<String, List<String>>();
+ 		List<List<String>> result = new ArrayList<List<String>>();
+
+ 		for (String str : strs) {
+ 		    char[] arr = new char[26];
+ 		    for (char ch : str.toCharArray()) {
+ 		        arr[ch-'a']++;
+ 		    }
+ 			String sorted = new String(arr);
+ 			
+ 			List<String> values = null;
+ 			if (map.containsKey(sorted)) {
+ 				values = map.get(sorted);
+ 			} else {
+ 				values = new ArrayList<String>();
+ 			}
+ 			values.add(str);
+ 			map.put(sorted, values);
+ 		}
+        
+        for (String str : map.keySet()) {
+            result.add(map.get(str));    
+        }
+ 		
+ 		return result;
+    }
+}

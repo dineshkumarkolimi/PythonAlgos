@@ -1,0 +1,137 @@
+/*
+Search for a Range
+
+Given a sorted array of integers, find the starting and ending position of a given target value.
+
+Your algorithm's runtime complexity must be in the order of O(log n).
+
+If the target is not found in the array, return [-1, -1].
+
+For example,
+Given [5, 7, 7, 8, 8, 10] and target value 8,
+return [3, 4].
+
+*/
+
+
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+ 		int start = 0, end = nums.length-1, m = 0;
+ 		boolean found = false;
+
+ 		while (start <= end) {
+ 			m = (start + end) / 2;
+ 			if (nums[m] == target) {
+ 				found = true;
+ 				break;
+ 			} else if (target < nums[m]) {
+ 				end = m -1;
+ 			} else {
+ 				start = m + 1;
+ 			}
+ 			found = false;
+ 		}       
+ 		if (found) {
+ 			start = m; 
+ 			end = m;
+ 			while (start >=0 && nums[start] == target) {
+ 				start--;
+ 			}
+ 			if (start >=0 && nums[start] != target) {
+ 				start = start +1;
+ 			} else {
+ 				start = 0;
+ 			}
+
+ 			while (end < nums.length && nums[end] == target) {
+ 				end++;
+ 			}
+
+ 			if (end < nums.length && nums[end] != target) {
+ 				end = end - 1;
+ 			} else {
+ 				end = nums.length -1;
+ 			}
+ 			int[] ret = new int[2];
+ 			ret[0] = start;
+ 			ret[1] = end;
+ 			return ret;
+ 		} else {
+ 			int[] ret = new int[2];
+ 			ret[0] = -1;
+ 			ret[1] = -1;
+ 			return ret;
+ 		}
+    }
+}
+
+_____________________________________________________________________________________________________
+//O(logn)
+
+
+public class Solution {
+    /** 
+     *@param A : an integer sorted array
+     *@param target :  an integer to be inserted
+     *return : a list of length 2, [index1, index2]
+     */
+    public int[] searchRange(int[] A, int target) {
+    	int start = 0, end = A.length - 1, mid = 0;
+    	int[] bound = new int[2];
+        
+        if (A.length == 0) {
+    		bound[0] = bound[1] = -1;
+    		return bound;                    
+        }
+        
+        //Search for left boundary
+    	while (start+ 1 < end) {
+    		mid = (start+end)/2;
+
+    		if (A[mid] == target) {
+    			end = mid;
+    		} else if (A[mid] < target) {
+    			start = mid;
+    		} else {
+    			end = mid;
+    		}
+
+    	}	
+
+    	if (A[start] == target) {
+    		bound[0] = start;
+    	} else if (A[end] == target) {
+    		bound[0] = end;
+    	} else {
+    		bound[0] = bound[1] = -1;
+    		return bound;
+    	}
+
+    	//Search for right boundary
+    	start = 0; 
+    	end = A.length - 1;
+    	while (start+ 1 < end) {
+    		mid = (start+end)/2;
+
+    		if (A[mid] == target) {
+    			start = mid;
+    		} else if (A[mid] < target) {
+    			start = mid;
+    		} else {
+    			end = mid;
+    		}
+
+    	}	
+
+    	if (A[end] == target) {
+    		bound[1] = end;
+    	} else if (A[start] == target) {
+    		bound[1] = start;
+    	} else {
+    		bound[0] = bound[1] = -1;
+    		return bound;
+    	}
+
+    	return bound;
+    }
+}

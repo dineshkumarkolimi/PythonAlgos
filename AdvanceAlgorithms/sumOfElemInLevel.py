@@ -17,8 +17,7 @@ def levelSum(L, level):
     start = ((level-1)*(level))//2
     sum = 0
     for i in range(start,start + level):
-        sum += L[i]
-        
+        sum += L[i]   
     return sum
 
 L =[ 1,2,4,5,7,9,10,13,15,16]

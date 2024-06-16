@@ -25,6 +25,8 @@ def coinChange(coins, n, sum):
     return dp_sum[sum]
 
 if __name__ == "__main__":
-    coins = [1,2,5,10,100]
-    sum = 124
-    coinChange(coins, len(coins), sum)
+    # coins = [1,2,5,10,100]
+    # sum = 124
+    coins = [2,3,5]
+    sum = 8
+    print(coinChange(coins, len(coins), sum))

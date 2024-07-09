@@ -29,13 +29,12 @@ class Tree:
     def search(self, root, item):
         if root is None:
             return False
+        if root.data == item:
+            return True
+        elif item > root.data:
+            return self.search(root.right, item)
         else:
-            if root.data == item:
-                return True
-            elif item > root.data:
-                return self.search(root.right, item)
-            else:
-                return self.search(root.left, item)
+            return self.search(root.left, item)
             
     def height(self, root):
         if root == None:

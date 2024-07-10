@@ -6,9 +6,9 @@ Created on Mon Oct 10 20:17:56 2022
 @author: dineshkumarkolimi
 
 Program: Stock Buy Sell to Maximize Profit
-    The cost of a stock on each day is given in an array. 
-    Find the maximum profit that you can make by buying and 
-    selling on those days. If the given array of prices is sorted 
+    The cost of a stock on each day is given in an array.
+    Find the maximum profit that you can make by buying and
+    selling on those days. If the given array of prices is sorted
     in decreasing order, then profit cannot be earned at all.
 
 Examples:

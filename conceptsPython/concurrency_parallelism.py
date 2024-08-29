@@ -1,5 +1,12 @@
 # Concurrency can be achieved with threads. There are different ways to do this. 
 
+# I/O-bound tasks:
+# When tasks involve waiting for external resources (like disk I/O or network I/O), 
+# using threads (threading, concurrent.futures.ThreadPoolExecutor) or asyncio can 
+# significantly improve performance.
+# CPU-bound tasks:
+# When tasks involve heavy computations, using processes (multiprocessing, 
+# concurrent.futures.ProcessPoolExecutor) can take advntage of multiple CPU cores for parallel processing
 
 import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -19,6 +26,8 @@ def fetch_url(url):
     return f"url fetched {url}"
 
 urls = ['http://example.com', 'http://example.org', 'http://example.net']
+
+# use concurrent.futures.ProcessPoolExecutor for multiprocesing
 with ThreadPoolExecutor(max_workers=4) as executor:
     futures = [executor.submit(fetch_url, url) for url in urls]
     

@@ -50,12 +50,12 @@ for future in as_completed(futures):
     print(future.result())
     
 # third way
-async def main():
+async def async_ex():
     for url in urls:
         result = await fetch_url()
         print(result)
 
-asyncio.run(main())
+asyncio.run(async_ex())
 
 
 #Multiprocessing
@@ -67,4 +67,55 @@ with multiprocessing.Pool(pool_size=4) as pool:
     results = pool.map(sqaure, L)
     print(result)
     
+# Here are some tips to help you get the best performance out of asyncio:
+
+# 1. Leverage Non-blocking I/O Operations
+# Ensure that all I/O operations (network requests, file operations, etc.) are non-blocking. 
+# Use asyncio-compatible libraries like aiohttp for HTTP requests instead of synchronous libraries 
+# like requests.
+
+import aiohttp
+
+async def fetch_data(session, url):
+    async with session.get(url) as response:
+        return await response.text()
+
+async def aio_ex():
+    async with aiohttp.ClientSession() as session:
+        result = await fetch_data(session, 'www.google.com')
+        print(result)
+        
+asynio.run(aio_ex())
+
+# 2. Limit the Number of Concurrent Tasks
+# While it's tempting to run a large number of tasks concurrently, doing so can overwhelm 
+# the event loop and degrade performance. Use asyncio.Semaphore or asyncio.BoundedSemaphore 
+# to limit the number of concurrent tasks
+
+# 3. Use asyncio.gather for Parallel Tasks
+# Use asyncio.gather() to run multiple coroutines concurrently and gather their results efficiently.
+
+async def limited_tasks(sem, url):
+    async with sem:
+        return await fetch_url(url)   
+
+async def semaphore_ex():
+    sem = asyncio.Semaphore(5)
+    tasks = [limited_tasks(sem, url) for url in urls]
+    results = await asyncio.gather(*tasks)
+    print(results)
     
+# 3. Optimize Task Scheduling
+# Use asyncio.create_task() to schedule tasks in the background without blocking the main flow.
+
+# Profile and Monitor Performance
+# Use tools like cProfile and asyncio-specific utilities to profile your application and 
+# identify bottlenecks
+import cProfile
+
+async def task_ex():
+    task = asyncio.create_task(semaphore_ex()) # this runs as a background task
+    await task
+
+cProfile.run('asyncio.run(task_ex())')
+
